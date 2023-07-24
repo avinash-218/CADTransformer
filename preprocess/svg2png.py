@@ -6,7 +6,7 @@ import argparse
 from glob import glob
 from multiprocessing import Pool
 from functools import partial
-from _utils_dataset import *
+from utils_dataset import *
 
 def cvt_svg2png(svg_path, replace1, replace2, scale=7):
     '''Function: convert svg to png
@@ -98,10 +98,13 @@ def main():
     parser.add_argument('--thread_num', type=int, help='multiprocess number', default=32)
     args = parser.parse_args()
 
+    # create sch and png under datasets svg_raw
     svg_dir = f"{args.data_save_dir}/svg"
     png_dir = f"{args.data_save_dir}/png"
     os.makedirs(svg_dir, exist_ok=True)
     os.makedirs(png_dir, exist_ok=True)
+
+    #creates train val test under svg and png directories
     os.makedirs(f"{svg_dir}/train", exist_ok=True)
     os.makedirs(f"{svg_dir}/val", exist_ok=True)
     os.makedirs(f"{svg_dir}/test", exist_ok=True)

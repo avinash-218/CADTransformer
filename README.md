@@ -4,21 +4,10 @@ Official Pytorch Implementation of CVPR2022
 
 ## Installation
 We recommend users to use `conda` to install the running environment. The following dependencies are required:
-```
-CUDA=11.1
-Python=3.7.7
-pytorch=1.9.0
-torchvision=0.10.0
-sklearn=1.0.1
-pillow=8.3.1
-opencv-python
-matplotlib
-scipy
-tqdm
-gdown
-svgpathtools
-```
-Our code should compatible with pytorch>=1.5.0
+
+- Python : 3.7
+- Refer requirements file
+- Our code should compatible with pytorch>=1.5.0
 
 ## Download Pretrained HRNet
 The Input Embedding network is based on HRNet-W48-C, the pretrained model on ImageNet can be download from official [cloud drive](https://github.com/HRNet/HRNet-Image-Classification).
@@ -34,20 +23,20 @@ In order to train the model on entire FloorPlanCAD dataset, users need first dow
 
 ### download from floorplancad website
 ```
-python preprocess/download_data.py  --data_save_dir  /ssd1/zhiwen/datasets/svg_raw
+python preprocess/download_data.py  --data_save_dir  ./datasets/svg_raw
 ```
 ### convert semantic labeling to floorplanCAD v1 version and generate rasterized images
 ```
-python preprocess/svg2png.py --train_00 /ssd1/zhiwen/datasets/svg_raw/train-00 --train_01 /ssd1/zhiwen/datasets/svg_raw/train-01  --test_00  /ssd1/zhiwen/datasets/svg_raw/test-00   --svg_dir /ssd1/zhiwen/datasets/svg_processed/svg   --png_dir /ssd1/zhiwen/datasets/svg_processed/png   --scale 7  --cvt_color
+python preprocess/svg2png.py --data_save_dir ./datasets/svg_raw/ --scale 7 --cvt_color
 ```
 ### generate npy format data
 ```
-python preprocess/preprocess_svg.py -i /ssd1/zhiwen/datasets/svg_processed/svg/train  -o /ssd1/zhiwen/datasets/svg_processed/npy/train   --thread_num  48
-python preprocess/preprocess_svg.py -i /ssd1/zhiwen/datasets/svg_processed/svg/test  -o /ssd1/zhiwen/datasets/svg_processed/npy/test   --thread_num  48
-python preprocess/preprocess_svg.py -i /ssd1/zhiwen/datasets/svg_processed/svg/val  -o /ssd1/zhiwen/datasets/svg_processed/npy/val   --thread_num  48
+python preprocess/preprocess_svg.py -i ./datasets/svg_processed/svg/train  -o ./datasets/svg_processed/npy/train   --thread_num  48
+python preprocess/preprocess_svg.py -i ./datasets/svg_processed/svg/test  -o ./datasets/svg_processed/npy/test   --thread_num  48
+python preprocess/preprocess_svg.py -i ./datasets/svg_processed/svg/val  -o ./datasets/svg_processed/npy/val   --thread_num  48
 ```
 mkdir data
-ln -s /ssd1/zhiwen/datasets/svg_processed   ./data/floorplancad_v2
+ln -s ./datasets/svg_processed   ./data/floorplancad_v2
 ```
 ├── data
 ├──├── FloorPlanCAD
