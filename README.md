@@ -35,7 +35,7 @@ python preprocess/preprocess_svg.py -i ./datasets/svg_processed/svg/train  -o ./
 python preprocess/preprocess_svg.py -i ./datasets/svg_processed/svg/test  -o ./datasets/svg_processed/npy/test   --thread_num  48
 python preprocess/preprocess_svg.py -i ./datasets/svg_processed/svg/val  -o ./datasets/svg_processed/npy/val   --thread_num  48
 ```
-mkdir data
+mkdir data<br>
 ln -s ./datasets/svg_processed   ./data/floorplancad_v2
 ```
 ├── data
