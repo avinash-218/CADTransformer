@@ -12,3 +12,4 @@ lxml
 pandas
 yacs
 cairosvg
+timm==0.4.12
