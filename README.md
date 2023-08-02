@@ -57,7 +57,7 @@ ln -s ./datasets/svg_processed   ./data/floorplancad_v2
 ## Usage
 After installing the required libraries, users can directly train CADTransformer using the provided data samples
 ```
-CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 train_cad_ddp.py --data_root ./datasets/svg_processed --pretrained_model ./pretrained_models/hrnetv2_w48_imagenet_pretrained.pth
+ CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 train_cad_ddp.py --data_root ./data/floorplancad_v2 --pretrained_model ./pretrained_models/hrnetv2_w48_imagenet_pretrained.pth
 ```
 One can speed up the training process by using multiple GPUs
 ```
