@@ -11,6 +11,7 @@ from utils.utils_model import *
 
 class CADDataLoader(Dataset):
     def __init__(self, split='train', do_norm=True, cfg=None, max_prim=12000):
+        print(split)
         self.set_random_seed(123)
         self.root = cfg.root
         self.split = split
@@ -41,6 +42,8 @@ class CADDataLoader(Dataset):
         self.anno_path_list = glob(os.path.join(self.root, "npy", split, "*.npy"))
         self.image_path_list = sorted(self.image_path_list)
         self.anno_path_list = sorted(self.anno_path_list)
+
+        print(len(self.image_path_list), len(self.anno_path_list))
 
         # data augmentation
         self.train_len = len(self.anno_path_list)
@@ -107,12 +110,14 @@ class CADDataLoader(Dataset):
         center = adj_node_classes["ct_norm"]
         xy = torch.from_numpy(np.array(center, dtype=np.float32)).cuda()
 
-        if self.rgb_dim > 0:
-            rgb_npy_path = ann_path.replace('/npy/', '/npy_rgb/')
-            rgb_info = np.load(rgb_npy_path, allow_pickle=True).item()['rgbs']
-            rgb_info = torch.from_numpy(np.array(rgb_info, dtype=np.long)).cuda()
-        else:
-            rgb_info = xy
+        # if self.rgb_dim > 0:
+        #     rgb_npy_path = ann_path.replace('/npy/', '/npy_rgb/')
+        #     rgb_info = np.load(rgb_npy_path, allow_pickle=True).item()['rgbs']
+        #     rgb_info = torch.from_numpy(np.array(rgb_info, dtype=np.long)).cuda()
+        # else:
+        #     rgb_info = xy
+
+        rgb_info = xy
 
         nns = adj_node_classes["nns"]
         nns = torch.from_numpy(np.array(nns, dtype=np.long)).cuda()

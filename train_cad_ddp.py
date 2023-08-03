@@ -20,8 +20,7 @@ def parse_args():
     parser.add_argument('--cfg',
                         type=str,
                         default="config/hrnet48.yaml",
-                        help='experiment configure file name'
-                        )
+                        help='experiment configure file name')
     parser.add_argument('--val_only',
                         action="store_true",
                         help='flag to do evaluation on val set')
@@ -66,24 +65,23 @@ def main():
     args = parse_args()
     cfg = update_config(config, args)
 
-    os.makedirs(cfg.log_dir, exist_ok=True)
-    if cfg.eval_only:
+    os.makedirs(cfg.log_dir, exist_ok=True) #make log dir
+
+    if cfg.eval_only:   #validation
         logger= create_logger(cfg.log_dir, 'val')
-    elif cfg.test_only:
+    elif cfg.test_only: #testing
         logger= create_logger(cfg.log_dir, 'test')
-    else:
+    else:   #training
         logger= create_logger(cfg.log_dir, 'train')
 
     # Distributed Train Config
-    torch.cuda.set_device(args.local_rank)
-    torch.distributed.init_process_group(
-        backend="nccl", init_method="env://",
-    )
+    torch.cuda.set_device(args.local_rank)  #set GPU device
+    torch.distributed.init_process_group(backend="nccl", init_method="env://",) #
     device = torch.device('cuda:{}'.format(args.local_rank))
 
     # Create Model
     model = CADTransformer(cfg)
-    CE_loss = torch.nn.CrossEntropyLoss().cuda()
+    CE_loss = torch.nn.CrossEntropyLoss().cuda()    #loss function
 
     # Create Optimizer
     if cfg.optimizer == 'Adam':
